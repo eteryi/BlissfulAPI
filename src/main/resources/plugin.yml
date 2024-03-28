@@ -1,0 +1,7 @@
+name: BlissfulAPI
+version: '${project.version}'
+main: dev.cross.blissfulcore.BlissfulCore
+api-version: '1.20'
+commands:
+  blissful-item:
+    usage: /blissful-item
