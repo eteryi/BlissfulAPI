@@ -7,8 +7,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public abstract class GUIInventory {
     private static final HashMap<Inventory, GUIInventory> guiInventoryMap = new HashMap<>();
@@ -69,8 +68,13 @@ public abstract class GUIInventory {
 
     public void close() {
         if (inventory != null) {
-            inventory.getViewers().forEach(HumanEntity::closeInventory);
+            List<HumanEntity> viewers = new ArrayList<>(inventory.getViewers());
+            viewers.forEach(HumanEntity::closeInventory);
         }
+    }
+
+    public Optional<Inventory> getInventory() {
+        return Optional.ofNullable(this.inventory);
     }
 
     protected abstract void onInteract(InventoryClickEvent event);

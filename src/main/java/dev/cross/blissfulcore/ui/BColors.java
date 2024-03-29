@@ -7,4 +7,6 @@ public class BColors {
     public static final TextColor YELLOW = TextColor.fromHexString("#f3a833");
     public static final TextColor LIGHT_PURPLE = TextColor.fromHexString("#7b5480");
     public static final TextColor GREEN = TextColor.fromHexString("#9de64e");
+    public static final TextColor BLUE = TextColor.fromHexString("#36c5f4");
+    
 }

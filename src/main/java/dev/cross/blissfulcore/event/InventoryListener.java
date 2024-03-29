@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 
 public class InventoryListener implements Listener {
     @EventHandler
@@ -12,6 +13,10 @@ public class InventoryListener implements Listener {
         GUIInventory inventory = GUIInventory.from(event.getClickedInventory());
         if (inventory != null) {
             inventory.interact(event);
+        }
+
+        if (GUIInventory.from(event.getView().getTopInventory()) != null) {
+            event.setCancelled(true);
         }
     }
 
@@ -22,4 +27,5 @@ public class InventoryListener implements Listener {
             inventory.closeEvent(event);
         }
     }
+
 }
