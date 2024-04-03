@@ -1,18 +1,23 @@
 package dev.cross.blissfulcore.api;
 
+import net.md_5.bungee.api.ChatColor;
+
 public enum BlissfulTeams {
-    RUBY(".ruby"),
-    AMBER(".amber"),
-    TOPAZ(".topaz"),
-    JADE(".jade"),
-    AQUAMARINE(".aquamarine"),
-    DIAMOND(".diamond"),
-    SAPPHIRE(".sapphire"),
-    AMETHYST(".amethyst");
+    RUBY(".ruby", ChatColor.RED),
+    AMBER(".amber", ChatColor.GOLD),
+    TOPAZ(".topaz", ChatColor.YELLOW),
+    JADE(".jade", ChatColor.GREEN),
+    AQUAMARINE(".aquamarine", ChatColor.DARK_AQUA),
+    DIAMOND(".diamond", ChatColor.AQUA),
+    SAPPHIRE(".sapphire", ChatColor.BLUE),
+    AMETHYST(".amethyst", ChatColor.LIGHT_PURPLE);
 
     private final String scoreboardID;
-    BlissfulTeams(String scoreboardID) {
+    private final ChatColor color;
+
+    BlissfulTeams(String scoreboardID, ChatColor color) {
         this.scoreboardID = scoreboardID;
+        this.color = color;
     }
 
     public void setTokens(int tokens) {
@@ -22,5 +27,9 @@ public enum BlissfulTeams {
 
     public int getTokens() {
         return BlissfulAPI.getImpl().getTeamTokens(this.scoreboardID);
+    }
+
+    public ChatColor getColor() {
+        return this.color;
     }
 }

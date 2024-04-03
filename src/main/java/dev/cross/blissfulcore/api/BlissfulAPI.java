@@ -70,4 +70,5 @@ public interface BlissfulAPI {
      * @return            An optional value which may contain the team
      */
     Optional<BlissfulTeams> getTeamFrom(Player player);
+
 }
