@@ -7,8 +7,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
 
-import java.util.Arrays;
-import java.util.Optional;
+import java.util.*;
 
 public class BlissfulAPIImpl implements BlissfulAPI {
     private static final String TOKEN_OBJECTIVE = "TokensThisEvent";
@@ -77,5 +76,34 @@ public class BlissfulAPIImpl implements BlissfulAPI {
         if (team == null) return Optional.empty();
         String teamName = team.getName();
         return Arrays.stream(BlissfulTeams.values()).filter(it -> it.toString().equalsIgnoreCase(teamName)).findAny();
+    }
+
+    @Override
+    public Set<Player> getPlayersFrom(BlissfulTeams team) {
+        Team rawTeam = getScoreboardTeam(team).orElse(null);
+        if (rawTeam == null) return Set.of();
+        Set<Player> players = new HashSet<>();
+        for (String entry : rawTeam.getEntries()) {
+            Player player = Bukkit.getPlayer(entry);
+            if (player == null) continue;
+            if (!player.isOnline()) continue;
+            players.add(player);
+        }
+        return players;
+    }
+
+    @Override
+    public Optional<Team> getScoreboardTeam(BlissfulTeams team) {
+        Scoreboard board = getMainScoreboard();
+        String teamName = team.toString();
+        Team boardTeam = board.getTeam(teamName.substring(0, 1).toUpperCase() + teamName.substring(1).toLowerCase());
+        if (boardTeam == null) return Optional.empty();
+        return Optional.of(boardTeam);
+    }
+
+    @Override
+    public String getTeamName(BlissfulTeams team) {
+        Optional<Team> rawTeam = team.getRawTeam();
+        return rawTeam.map(Team::getPrefix).orElse("");
     }
 }

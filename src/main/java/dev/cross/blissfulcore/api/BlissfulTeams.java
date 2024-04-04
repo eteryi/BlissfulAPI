@@ -1,6 +1,11 @@
 package dev.cross.blissfulcore.api;
 
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Team;
+
+import java.util.Optional;
+import java.util.Set;
 
 public enum BlissfulTeams {
     RUBY(".ruby", ChatColor.RED),
@@ -31,5 +36,17 @@ public enum BlissfulTeams {
 
     public ChatColor getColor() {
         return this.color;
+    }
+
+    public Set<Player> getPlayers() {
+        return BlissfulAPI.getImpl().getPlayersFrom(this);
+    }
+
+    public Optional<Team> getRawTeam() {
+        return BlissfulAPI.getImpl().getScoreboardTeam(this);
+    }
+
+    public String getDisplayName() {
+        return BlissfulAPI.getImpl().getTeamName(this);
     }
 }

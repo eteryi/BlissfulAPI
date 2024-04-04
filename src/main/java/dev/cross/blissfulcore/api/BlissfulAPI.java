@@ -1,8 +1,10 @@
 package dev.cross.blissfulcore.api;
 
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Team;
 
 import java.util.Optional;
+import java.util.Set;
 
 public interface BlissfulAPI {
     /**
@@ -70,5 +72,30 @@ public interface BlissfulAPI {
      * @return            An optional value which may contain the team
      */
     Optional<BlissfulTeams> getTeamFrom(Player player);
+
+    /**
+     * Returns a set containing all the online players which are in the specified team.
+     * This function will never return null, only an empty set.
+     *
+     * @param    team   the team which you want to grab the players from
+     * @return          a set containing all the online players inside that team
+     */
+    Set<Player> getPlayersFrom(BlissfulTeams team);
+
+    /**
+     * Returns the Raw Team that is associated to the BlissfulTeams
+     *
+     * @param    team   the blissful team which you want to get the scoreboard team from.
+     * @return          An optional which may contain the Scoreboard Team.
+     */
+    Optional<Team> getScoreboardTeam(BlissfulTeams team);
+
+    /**
+     * Returns the prefix of the specified Blissful Team, which will be used as its display name.
+     *
+     * @param   team    the blissful team which you want to search the display name for
+     * @return          the prefix associated with the scoreboard team
+     */
+    String getTeamName(BlissfulTeams team);
 
 }
